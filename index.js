@@ -9,7 +9,26 @@ import jwt from "jsonwebtoken"
 const app = express();
 app.use(bodyParser.json());
 
+app.use((req,res,next)=>{
 
+    let token = req.header
+    ("Authorization");
+
+    if (token!=null){
+        token = token.replace("Bearer ","");
+    
+
+        jwt.verify(token, "kv-secret-69", 
+        (err, decoded) => {
+
+            if(!err){
+                req.user = decoded  // The token we have decoded, store in req.user : we can check this in controller
+            }
+        })
+    }
+
+    next();
+})
 
 const mongoUrl = "mongodb+srv://user:user123@cluster0.hglbk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
