@@ -4,6 +4,9 @@ import bodyParser from "body-parser";
 import userRouter from "./router/userRouter.js";
 import productRouter from "./router/productRouter.js";
 import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
+
+dotenv.config();
 
 
 const app = express();
@@ -18,7 +21,7 @@ app.use((req,res,next)=>{
         token = token.replace("Bearer ","");
     
 
-        jwt.verify(token, "kv-secret-69", 
+        jwt.verify(token, process.env.JWT_SECRET, 
         (err, decoded) => {
 
             if(!err){
@@ -30,7 +33,7 @@ app.use((req,res,next)=>{
     next();
 })
 
-const mongoUrl = "mongodb+srv://user:user123@cluster0.hglbk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const mongoUrl = process.env.MONGO_URL
 
 mongoose.connect(mongoUrl)
 
