@@ -38,7 +38,12 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-     
+
+    profilePictute : {
+        type : String,
+        required : true,
+        default : "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
+    }
 })
 
 const User = mongoose.model("User", userSchema);
