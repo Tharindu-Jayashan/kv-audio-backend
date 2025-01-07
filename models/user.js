@@ -39,9 +39,8 @@ const userSchema = new mongoose.Schema({
         required : true
     },
 
-    profilePictute : {
+    profilePicture : {
         type : String,
-        required : true,
         default : "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
     }
 })

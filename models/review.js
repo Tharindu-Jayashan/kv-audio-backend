@@ -1,7 +1,9 @@
+import mongoose from "mongoose";
 const reviewSchema = new mongoose.Schema({
 
     email : {
         type : String,
+        unique : true,
         required : true
     },
 
@@ -21,7 +23,7 @@ const reviewSchema = new mongoose.Schema({
     },
 
     Date : {
-        type : String,
+        type : Date,
         required : true,
         default : Date.now()
     },
@@ -34,7 +36,6 @@ const reviewSchema = new mongoose.Schema({
 
     isApproved : {
         type : Boolean,
-        required : true,
         default : false
     }
 })
