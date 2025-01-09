@@ -87,3 +87,36 @@ export function addReview(req, res) {
             }
         }
     }
+
+    
+        export function approveReview(req, res) {
+
+            const email = req.params.email;
+    
+            if(req.user == null){
+                res.status(401).json({
+                    message : "please login and try again"
+                })
+                return
+            }
+            
+            if(req.user.role == "admin"){
+                Review.updateOne({email : email},{isApproved : true}).then(() => {
+                    res.json({
+                        message : "Review approved successfully"
+                    }).catch(() => {
+                        res.status(500).json({
+                            message : "Review approval failed"
+                        })
+                    })
+                })
+            }else{
+                res.status(403).json({
+                    message : "You are not authorized to perform this action. only admin can approve reviews"
+                })
+            }
+    
+    }
+
+    
+
