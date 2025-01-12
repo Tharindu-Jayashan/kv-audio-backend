@@ -31,3 +31,54 @@ export function addProduct(req, res){
         })
     }
 )}
+
+export async function deleteProduct(req, res) {
+
+    try{
+        if(req.user == null){
+            res.status(401).json({
+                message : "please login and try again"
+            })
+            return
+        }
+        if(req.user.role != "admin"){
+            res.status(403).json({
+                message : "You are not authorized to perform this action. only admin can delete products"
+            })
+            return
+        }
+    
+        const id = req.params.id;
+
+        if(id == null){
+            res.status(400).json({
+                message : "product id is required"
+            })
+            return
+        }
+
+        const products =  await Product.findById(id);
+
+        if(!products){
+            res.status(404).json({
+                message : "product not found"
+            })
+            return
+        }else{
+            await Product.deleteOne({_id : id})
+            res.json({
+                message : "Product deleted successfully"
+            })
+
+        }
+
+        
+      
+
+    }catch(error){
+        res.status(500).json({
+            error : "Product deletion failed"
+        })
+    }
+    
+}

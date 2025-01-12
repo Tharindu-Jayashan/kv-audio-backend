@@ -49,7 +49,7 @@ export function addReview(req, res) {
 
     export function deleteReview(req, res) {
 
-        const email = req.params.email;
+        const id = req.params.id;
 
         if(req.user == null){
             res.status(401).json({
