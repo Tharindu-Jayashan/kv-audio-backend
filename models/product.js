@@ -41,8 +41,12 @@ const productSchema = new mongoose.Schema({
     },
     
     image : {
-        type : String,
-        required : true
+        type : [String],
+        required : true,
+        default : [
+            "https://images.app.goo.gl/vyVZPWunDzYEWQmo8",
+            "https://images.app.goo.gl/vyVZPWunDzYEWQmo8"
+            ]
     }
 })
 
