@@ -4,15 +4,14 @@ import mongoose from "mongoose";
 const inquirySchema = new mongoose.Schema({
 
     id : {
-        type : number,
+        type : Number,
         required : true,
         unique : true
     },
 
     email : {
         type : String,
-        required : true,
-        unique : true
+        required : true
     },
 
     message : {
