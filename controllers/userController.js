@@ -15,9 +15,7 @@ export function registerUser(req, res) {
             message : "User registered successfully"
         })
     }).catch((error)=>{
-        res.status(500).json({
-            error : "user registration failed"
-        })
+       console.log(error);
     })
 }
 
