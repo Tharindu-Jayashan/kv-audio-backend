@@ -8,10 +8,14 @@ import dotenv from "dotenv"
 import reviewRouter from "./router/reviewRouter.js";
 import inquiryRouter from "./router/inquiryRouter.js";
 
+import cors from "cors";
+
 dotenv.config();
 
 
 const app = express();
+
+app.use(cors());
 app.use(bodyParser.json());
 
 app.use((req,res,next)=>{
