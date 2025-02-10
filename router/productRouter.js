@@ -7,7 +7,7 @@ productRouter.post("/", addProduct)
 
 productRouter.get("/", getProducts)
 
-productRouter.delete("/:id", deleteProduct)
+productRouter.delete("/:key", deleteProduct)
 
 productRouter.put("/:key", updateProduct)
 

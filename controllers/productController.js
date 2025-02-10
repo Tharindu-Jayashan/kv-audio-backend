@@ -97,16 +97,16 @@ export async function deleteProduct(req, res) {
             return
         }
     
-        const id = req.params.id;
+        const key = req.params.key;
 
-        if(id == null){
+        if(key == null){
             res.status(400).json({
                 message : "product id is required"
             })
             return
         }
 
-        const products =  await Product.findById(id);
+        const products =  await Product.findOne({key});
 
         if(!products){
             res.status(404).json({
@@ -114,15 +114,12 @@ export async function deleteProduct(req, res) {
             })
             return
         }else{
-            await Product.deleteOne({_id : id})
+            await Product.deleteOne({key})
             res.json({
                 message : "Product deleted successfully"
             })
 
-        }
-
-        
-      
+        }   
 
     }catch(error){
         res.status(500).json({
