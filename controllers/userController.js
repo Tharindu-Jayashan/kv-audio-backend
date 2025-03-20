@@ -41,8 +41,13 @@ export function loginUser(req, res){
     }).then((user)=>{
 
         if(user == null){
-            res.status(404).json({  message : "User not found"})
+            res.status(404).json({  error : "User not found"})
         }else{
+
+            if(user.isBlocked){
+                res.status(403).json({error : "Your account is blocked. please contact admin"})
+                return;
+            }
         
            const isPasswordCorrect = bcrypt.compareSync(data.password, user.password)  
 
@@ -66,6 +71,40 @@ export function loginUser(req, res){
         }
        })
 
+}
+
+export async function blockOrUnblockUser(req, res) {    
+    const email = req.params.email;
+
+    if(isItAdmin){
+        try{
+            const user = await User.findOne({email : email});
+
+            if(user == null){
+                res.status(404).json({
+                    message : "User not found"
+                })
+                return;
+            }else{
+                const isBlocked = !user.isBlocked;
+
+                await User.updateOne({email : email}, {isBlocked : isBlocked});
+
+                res.json({  
+                    message : isBlocked ? "User blocked successfully" : "User unblocked successfully"
+                })
+            }
+
+        }catch(e){
+            res.status(500).json({
+                message : "User blocking failed"
+            })
+        }
+    }else{
+        res.status(403).json({
+            message : "You are not authorized to perform this action. only admin can block or unblock users"
+        })
+    }
 }
 
 export function isItAdmin(req) {
