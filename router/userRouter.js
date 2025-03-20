@@ -5,8 +5,10 @@ const userRouter = express.Router();
 
 userRouter.post("/", registerUser);
 
-userRouter.get("/", getAllUsers)
+// userRouter.get("/", getAllUsers);
 
-userRouter.post("/login", loginUser)
+userRouter.post("/login", loginUser);
+
+userRouter.get("/all", getAllUsers);
 
 export default userRouter;
